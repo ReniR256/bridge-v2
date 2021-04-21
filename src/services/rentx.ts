@@ -5,6 +5,7 @@ import {
   BitcoinCash,
   Dogecoin,
   Zcash,
+  Bitblocks,
 } from "@renproject/chains-bitcoin";
 import { Ethereum, BinanceSmartChain } from "@renproject/chains-ethereum";
 import { RenNetwork } from "@renproject/interfaces";
@@ -24,6 +25,7 @@ export const lockChainMap = {
   [RenChain.zcash]: () => Zcash(),
   [RenChain.bitcoinCash]: () => BitcoinCash(),
   [RenChain.dogecoin]: () => Dogecoin(),
+  [RenChain.bitblocks]: () => Bitblocks(),
 };
 
 export const mintChainMap = {
@@ -86,6 +88,9 @@ export const releaseChainMap: BurnMachineContext["toChainMap"] = {
   [RenChain.dogecoin]: (context) => {
     return Dogecoin().Address(context.tx.destAddress) as any;
   },
+  [RenChain.bitblocks]: (context) => {
+    return Bitblocks().Address(context.tx.destAddress) as any;
+  },
 };
 
 export const releaseChainClassMap = {
@@ -93,6 +98,7 @@ export const releaseChainClassMap = {
   [RenChain.zcash]: Zcash,
   [RenChain.bitcoinCash]: BitcoinCash,
   [RenChain.dogecoin]: Dogecoin,
+  [RenChain.bitblocks]: Bitblocks,
 };
 
 export const chainsClassMap = { ...burnChainClassMap, ...releaseChainClassMap };
