@@ -26,6 +26,9 @@ import {
   MewFullIcon,
   TooltipIcon as NotSetIcon,
   WalletConnectFullIcon,
+  XbbFullIcon,
+  XbbGreyIcon,
+  XbbIcon,
   ZecFullIcon,
   ZecGreyIcon,
   ZecIcon,
@@ -40,6 +43,7 @@ export enum RenChain {
   zcash = "zcash",
   bitcoinCash = "bitcoinCash",
   dogecoin = "dogecoin",
+  bitblocks = "bitblocks",
   unknown = "unknown",
 }
 
@@ -48,11 +52,13 @@ export enum BridgeCurrency {
   BCH = "BCH",
   DOTS = "DOTS",
   DOGE = "DOGE",
+  XBB = "XBB",
   ZEC = "ZEC",
   DGB = "DGB",
   RENBTC = "RENBTC",
   RENBCH = "RENBCH",
   RENDOGE = "RENDOGE",
+  XXBB = "XXBB",
   RENZEC = "RENZEC",
   RENDGB = "RENDGB",
   ETH = "ETH",
@@ -65,6 +71,7 @@ export enum BridgeChain {
   BCHC = "BCHC",
   ZECC = "ZECC",
   DOGC = "DOGC",
+  XBBC = "XBBC",
   BSCC = "BSCC",
   ETHC = "ETHC",
   UNKNOWNC = "UNKNOWNC",
@@ -245,6 +252,32 @@ export const currenciesConfig: Record<BridgeCurrency, BridgeCurrencyConfig> = {
     rentxName: "renDOGE",
     sourceChain: BridgeChain.ETHC,
     bandchainSymbol: BridgeCurrency.DOGE,
+    ethTestnet: EthTestnet.KOVAN,
+    networkMappings: newNetworkMappings,
+  },
+  [BridgeCurrency.XBB]: {
+    symbol: BridgeCurrency.XBB,
+    short: "XBB",
+    full: "Bitblocks",
+    FullIcon: XbbFullIcon,
+    GreyIcon: XbbGreyIcon,
+    Icon: XbbIcon,
+    MainIcon: XbbFullIcon,
+    sourceChain: BridgeChain.XBBC,
+    rentxName: "XBB",
+    networkMappings: newNetworkMappings,
+  },
+  [BridgeCurrency.XXBB]: {
+    symbol: BridgeCurrency.XXBB,
+    short: "XXBB",
+    full: "Wrapped Bitblocks",
+    FullIcon: XbbFullIcon,
+    GreyIcon: XbbGreyIcon,
+    Icon: XbbIcon,
+    MainIcon: XbbGreyIcon,
+    rentxName: "XXBB",
+    sourceChain: BridgeChain.ETHC,
+    bandchainSymbol: BridgeCurrency.XBB,
     ethTestnet: EthTestnet.KOVAN,
     networkMappings: newNetworkMappings,
   },
@@ -430,6 +463,19 @@ export const chainsConfig: Record<BridgeChain, BridgeChainConfig> = {
     targetConfirmations: 40,
     nativeCurrency: BridgeCurrency.DOGE,
   },
+    [BridgeChain.XBBC]: {
+    symbol: BridgeChain.XBBC,
+    short: "XBB",
+    full: "Bitblocks",
+    FullIcon: XbbFullIcon,
+    GreyIcon: XbbGreyIcon,
+    Icon: XbbIcon,
+    MainIcon: XbbFullIcon,
+    rentxName: RenChain.bitblocks,
+    blockTime: 0.5,
+    targetConfirmations: 6,
+    nativeCurrency: BridgeCurrency.XBB,
+  },
   [BridgeChain.BSCC]: {
     symbol: BridgeChain.BSCC,
     short: "BSC",
@@ -533,6 +579,7 @@ export const supportedLockCurrencies = [
   BridgeCurrency.BTC,
   BridgeCurrency.BCH,
   BridgeCurrency.DOGE,
+  BridgeCurrency.XBB,
   BridgeCurrency.ZEC,
 ];
 
@@ -547,6 +594,7 @@ export const supportedReleaseCurrencies = [
   BridgeCurrency.RENBTC,
   BridgeCurrency.RENBCH,
   BridgeCurrency.RENDOGE,
+  BridgeCurrency.XXBB,
   BridgeCurrency.RENZEC,
 ];
 
@@ -558,6 +606,8 @@ export const toMintedCurrency = (lockedCurrency: BridgeCurrency) => {
       return BridgeCurrency.RENBCH;
     case BridgeCurrency.DOGE:
       return BridgeCurrency.RENDOGE;
+    case BridgeCurrency.XBB:
+      return BridgeCurrency.XXBB;
     case BridgeCurrency.ZEC:
       return BridgeCurrency.RENZEC;
     default:
@@ -573,6 +623,8 @@ export const toReleasedCurrency = (burnedCurrency: BridgeCurrency) => {
       return BridgeCurrency.BCH;
     case BridgeCurrency.RENDOGE:
       return BridgeCurrency.DOGE;
+    case BridgeCurrency.XXBB:
+      return BridgeCurrency.XBB;
     case BridgeCurrency.RENZEC:
       return BridgeCurrency.ZEC;
     default:
